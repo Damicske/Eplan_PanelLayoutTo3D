@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- 2D sheet: the panel layout page -->
+  <rect x="1.5" y="1.5" width="16" height="19" rx="1" fill="#f4f4f4" stroke="#4a4a4a" stroke-width="1"/>
+  <rect x="3.5" y="3.5" width="12" height="2.2" fill="#a8a8a8"/>
+  <rect x="3.5" y="16.3" width="12" height="2.2" fill="#a8a8a8"/>
+  <line x1="4" y1="11" x2="15" y2="11" stroke="#d62828" stroke-width="1.2"/>
+  <rect x="5" y="8" width="2.4" height="6" fill="#ffffff" stroke="#4a4a4a" stroke-width="0.7"/>
+  <rect x="8.3" y="8" width="2.4" height="6" fill="#ffffff" stroke="#4a4a4a" stroke-width="0.7"/>
+  <rect x="11.6" y="8" width="2.4" height="6" fill="#ffffff" stroke="#4a4a4a" stroke-width="0.7"/>
+  <!-- 3D mounting plate, turned -->
+  <polygon points="28.5,10 30.5,11 30.5,29 28.5,30" fill="#7a8794"/>
+  <polygon points="13,15 28.5,10 28.5,30 13,30.5" fill="#c9d3dc" stroke="#3c4650" stroke-width="0.8" stroke-linejoin="round"/>
+  <!-- ducts on the plate -->
+  <polygon points="14.5,17.2 27,13.3 27,15.5 14.5,19.4" fill="#9aa5ae"/>
+  <polygon points="14.5,27.4 27,26.3 27,28.5 14.5,29.4" fill="#9aa5ae"/>
+  <!-- rail -->
+  <polygon points="14.5,23.4 27,20.6 27,21.8 14.5,24.6" fill="#d62828"/>
+  <!-- devices on the rail: blocks -->
+  <g stroke="#1f4e8c" stroke-width="0.5" stroke-linejoin="round">
+    <polygon points="16,21 18.6,20.4 18.6,26 16,26.6" fill="#3a7bd5"/>
+    <polygon points="16,21 18.6,20.4 20.2,19.3 17.6,19.9" fill="#79a9ea"/>
+    <polygon points="18.6,20.4 20.2,19.3 20.2,24.9 18.6,26" fill="#285ea8"/>
+    <polygon points="20.6,20 23.2,19.4 23.2,25 20.6,25.6" fill="#3a7bd5"/>
+    <polygon points="20.6,20 23.2,19.4 24.8,18.3 22.2,18.9" fill="#79a9ea"/>
+    <polygon points="23.2,19.4 24.8,18.3 24.8,23.9 23.2,25" fill="#285ea8"/>
+  </g>
+  <!-- arrow 2D -> 3D -->
+  <path d="M19.5,4.5 C23.5,4 26,5.2 27,8" fill="none" stroke="#e8890c" stroke-width="1.6" stroke-linecap="round"/>
+  <polygon points="25,7.4 28.6,6.6 27.6,10.2" fill="#e8890c"/>
+</svg>

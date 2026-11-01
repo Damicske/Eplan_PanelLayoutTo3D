@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    EPLAN add-in: 2D panel layout page (Schakelkastopbouw) -> Pro Panel 3D layout.
+
+    EplanBin: the EPLAN Platform Bin folder. The EPLAN DLLs are referenced from there and not copied.
+    The framework follows that folder:
+      EPLAN up to 2026: .NET Framework 4.8.1, Eplan.EplApi.AFu.dll, Eplan.EplApi.Baseu.dll ...   -> net481
+      EPLAN 2027 and later: .NET 8, Eplan.EplApi.AFNetu.dll, Eplan.EplApi.BaseNetu.dll ...        -> net8.0-windows
+    (net481 needs the ".NET Framework 4.8.1 targeting pack" from the Visual Studio Installer.)
+  -->
+  <PropertyGroup>
+    <EplanBin>C:\Program Files\EPLAN\Platform\2026.0.3\Bin</EplanBin>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="Exists('$(EplanBin)\Eplan.EplApi.AFNetu.dll')">
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <EplNet>Net</EplNet>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!-- System.Windows.Media.Media3D (Matrix3D, Rect3D, Point3D) used by the EPLAN 3D API -->
+    <UseWPF>true</UseWPF>
+    <DefineConstants>$(DefineConstants);EPLAN_NET8=True</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="!Exists('$(EplanBin)\Eplan.EplApi.AFNetu.dll')">
+    <TargetFramework>net481</TargetFramework>
+    <EplNet></EplNet>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <AssemblyName>CdPc.EplAddin.PanelLayoutTo3D</AssemblyName>
+    <RootNamespace>CdPc.EplAddin.PanelLayoutTo3D</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+    <OptionStrict>On</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <OptionExplicit>On</OptionExplicit>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Version>26.11.1.0</Version>
+    <Company>CD-PC.be</Company>
+    <Copyright>CD-PC</Copyright>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Description>Convert a 2d made model to a 3d layout in ePLAN</Description>
+    <Product>PanelLayoutTo3D</Product>
+  </PropertyGroup>
+
+  <!-- .NET Framework: WinForms and the WPF 3D types as plain framework references -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net481'">
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Eplan.EplApi.AF$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.AF$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eplan.EplApi.Base$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.Base$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eplan.EplApi.DataModel$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.DataModel$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eplan.EplApi.HEServices$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.HEServices$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eplan.EplApi.Gui$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.Gui$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Eplan.EplApi.MasterData$(EplNet)u">
+      <HintPath>$(EplanBin)\Eplan.EplApi.MasterData$(EplNet)u.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- the dialog's icon (the ribbon icon is the SVG in AddIn.vb) -->
+  <ItemGroup>
+    <EmbeddedResource Include="PanelLayoutTo3D.ico" LogicalName="PanelLayoutTo3D.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <!-- stops the build with a clear message when the Bin folder is wrong -->
+  <Target Name="CheckEplanBin" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(EplanBin)\Eplan.EplApi.AF$(EplNet)u.dll')" Text="EPLAN API not found: $(EplanBin)\Eplan.EplApi.AF$(EplNet)u.dll does not exist. Set EplanBin in PanelLayoutTo3D.vbproj to your EPLAN Platform Bin folder." />
+  </Target>
+
+</Project>
